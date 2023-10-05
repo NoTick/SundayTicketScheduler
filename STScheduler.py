@@ -62,9 +62,9 @@ class App(customtkinter.CTk):
         # create sidebar frame with widgets
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
         self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
-        self.sidebar_frame.grid_rowconfigure(10, weight=1)
+        self.sidebar_frame.grid_rowconfigure(12, weight=1) # If modifying items on sidebar (adding) make sure to increment by 1
 
-        #Sidebar 'Main Label' and clock
+        # Sidebar 'Main Label' and clock
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="Sunday Ticket Settings", font=customtkinter.CTkFont(size=16, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
         self.clock_lbl = customtkinter.CTkLabel(self.sidebar_frame, font=("Arial", 16))
@@ -85,11 +85,21 @@ class App(customtkinter.CTk):
         self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, text="Submit TuneAll", command=self.submit_tuneall_button)
         self.sidebar_button_2.grid(row=6, column=0, padx=20, pady=2)
         
-        # Sidebar IP Entry
-        self.sidebar_entry_label = customtkinter.CTkLabel(self.sidebar_frame, text="COM Card IP:", anchor="w")
-        self.sidebar_entry_label.grid(row=8, column=0, padx=0, pady=(10, 0))
-        self.sidebar_entry = customtkinter.CTkEntry(self.sidebar_frame)
-        self.sidebar_entry.grid(row=9, column=0, padx=1, pady=5)
+        # Sidebar IP Entry (A)
+        self.sidebar_entry_label = customtkinter.CTkLabel(self.sidebar_frame, text="COM Card IP (A):", anchor="w")
+        self.sidebar_entry_label.grid(row=7, column=0, padx=0, pady=(0, 0))
+        self.sidebar_entry = customtkinter.CTkEntry(self.sidebar_frame, justify="center")
+        self.sidebar_entry.grid(row=8, column=0, padx=1, pady=5)
+
+        # Sidebar IP Entry (B)
+        self.sidebar_entry_label_b = customtkinter.CTkLabel(self.sidebar_frame, text="COM Card IP (B):", anchor="w")
+        self.sidebar_entry_label_b.grid(row=9, column=0, padx=0, pady=(0, 0))
+        self.sidebar_entry_b = customtkinter.CTkEntry(self.sidebar_frame, justify="center")
+        self.sidebar_entry_b.grid(row=10, column=0, padx=1, pady=0)
+
+        # button to test if ip entry B is empty or not
+        # self.sidebar_test_button = customtkinter.CTkButton(self.sidebar_frame, text="TEST IP", command=self.test_ip_b)
+        # self.sidebar_test_button.grid(row=11, column=0)
 
         #sidebar scaling selector
         self.scaling_label = customtkinter.CTkLabel(self.sidebar_frame, text="UI Scaling:", anchor="w")
@@ -109,17 +119,17 @@ class App(customtkinter.CTk):
         self.tabview = customtkinter.CTkTabview(self, width=500)
         self.tabview.grid(row=0, column=1, padx=20, pady=20, rowspan=4, sticky="nsew")        
 
-        # EPG tabview and corresponding textboxes
-        self.epg_tab_frame = self.tabview.add('EPG')
+        # EPG(A) tabview and corresponding textboxes
+        self.epg_tab_frame = self.tabview.add('EPG(A)')
         self.epg_tab_frame.columnconfigure(1, weight=1)
         self.epg_tab_frame.columnconfigure(2, weight=1)
         self.epg_tab_frame.rowconfigure(1, weight=1)
-        label_1 = customtkinter.CTkLabel(self.epg_tab_frame, text="Everyday EPG", font=("Arial", 12))
+        label_1 = customtkinter.CTkLabel(self.epg_tab_frame, text="Everyday EPG(A)", font=("Arial", 12))
         label_1.grid(row=0, column=0, pady=(20, 0), columnspan=2)
         self.textbox_1 = customtkinter.CTkTextbox(self.epg_tab_frame)
         self.textbox_1.grid(row=1, column=1, padx=(20, 10), pady=(20, 0), sticky="nsew")
         
-        label_2 = customtkinter.CTkLabel(self.epg_tab_frame, text="Sunday Ticket EPG", font=("Arial", 12))
+        label_2 = customtkinter.CTkLabel(self.epg_tab_frame, text="Sunday Ticket EPG(A)", font=("Arial", 12))
         label_2.grid(row=0, column=2, pady=(20, 0), columnspan=2)
         self.textbox_2 = customtkinter.CTkTextbox(self.epg_tab_frame)
         self.textbox_2.grid(row=1, column=2, padx=(10, 20), pady=(20, 0), sticky="nsew")
@@ -131,9 +141,36 @@ class App(customtkinter.CTk):
         self.openSundayTicketEpg.grid(row=2, column=2, pady=(10, 0), columnspan=2)
 
         #Submit textfields
-        self.submitEdEpg = customtkinter.CTkButton(self.epg_tab_frame, text="Save Everyday EPG", command=self.save_epg_ed)
+        self.submitEdEpg = customtkinter.CTkButton(self.epg_tab_frame, text="Save Everyday EPG(A)", command=self.save_epg_ed)
         self.submitEdEpg.grid(row=3, column=0, pady=(10, 0), columnspan=2)
-        self.submitStEpg = customtkinter.CTkButton(self.epg_tab_frame, text="Save Sunday Ticket EPG", command=self.save_epg_st)
+        self.submitStEpg = customtkinter.CTkButton(self.epg_tab_frame, text="Save Sunday Ticket EPG(A)", command=self.save_epg_st)
+        self.submitStEpg.grid(row=3, column=2, pady=(10, 0), columnspan=2)
+
+        # EPG(B) tabview and corresponding textboxes
+        self.epg_tab_frame = self.tabview.add('EPG(B)')
+        self.epg_tab_frame.columnconfigure(1, weight=1)
+        self.epg_tab_frame.columnconfigure(2, weight=1)
+        self.epg_tab_frame.rowconfigure(1, weight=1)
+        label_5 = customtkinter.CTkLabel(self.epg_tab_frame, text="Everyday EPG(B)", font=("Arial", 12))
+        label_5.grid(row=0, column=0, pady=(20, 0), columnspan=2)
+        self.textbox_5 = customtkinter.CTkTextbox(self.epg_tab_frame)
+        self.textbox_5.grid(row=1, column=1, padx=(20, 10), pady=(20, 0), sticky="nsew")
+        
+        label_6 = customtkinter.CTkLabel(self.epg_tab_frame, text="Sunday Ticket EPG(B)", font=("Arial", 12))
+        label_6.grid(row=0, column=2, pady=(20, 0), columnspan=2)
+        self.textbox_6 = customtkinter.CTkTextbox(self.epg_tab_frame)
+        self.textbox_6.grid(row=1, column=2, padx=(10, 20), pady=(20, 0), sticky="nsew")
+
+        #Open .txt file to input to textfields
+        self.openEverydayEpg = customtkinter.CTkButton(self.epg_tab_frame, text="Open TXT File", command=self.upload_ed_epg_b)
+        self.openEverydayEpg.grid(row=2, column=0, pady=(10, 0), columnspan=2)
+        self.openSundayTicketEpg = customtkinter.CTkButton(self.epg_tab_frame, text="Open TXT File", command=self.upload_st_epg_b)
+        self.openSundayTicketEpg.grid(row=2, column=2, pady=(10, 0), columnspan=2)
+
+        #Submit textfields
+        self.submitEdEpg = customtkinter.CTkButton(self.epg_tab_frame, text="Save Everyday EPG(B)", command=self.save_epg_ed_b)
+        self.submitEdEpg.grid(row=3, column=0, pady=(10, 0), columnspan=2)
+        self.submitStEpg = customtkinter.CTkButton(self.epg_tab_frame, text="Save Sunday Ticket EPG(B)", command=self.save_epg_st_b)
         self.submitStEpg.grid(row=3, column=2, pady=(10, 0), columnspan=2)
 
         # TuneAll tabview and corresponding textboxes
@@ -166,8 +203,10 @@ class App(customtkinter.CTk):
 
         # set default values
         self.scaling_optionemenu.set("100%")
-        self.textbox_1.insert("0.0", "Paste your EPG used everyday here, or upload it via *.txt file.")
-        self.textbox_2.insert("0.0", "Paste your Sunday Tickey EPG here, or upload it via *.txt file..")
+        self.textbox_1.insert("0.0", "Paste your COM Card (A) EPG used everyday here, or upload it via *.txt file.")
+        self.textbox_2.insert("0.0", "Paste your COM Card (A) Sunday Tickey EPG here, or upload it via *.txt file..")
+        self.textbox_5.insert("0.0", "Paste your COM Card (B) EPG used everyday here, or upload it via *.txt file.")
+        self.textbox_6.insert("0.0", "Paste your COM Card (B) Sunday Tickey EPG here, or upload it via *.txt file..")
         self.textbox_3.insert("0.0", "Paste your standard TuneAll here, or upload it via *.txt file..")
         self.textbox_4.insert("0.0", "Paste your Sunday Tickey TuneAll here, or upload it via *.txt file..")
         self.sidebar_entry.insert('0', '192.168.3.18')
@@ -177,21 +216,29 @@ class App(customtkinter.CTk):
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
         customtkinter.set_widget_scaling(new_scaling_float)
 
+
     def submit_epg_button(self):
         if self.button_trigger == False:
             self.button_trigger = True
         self.submit_epg()
+        if self.test_ip_b():
+            self.submit_epg_b()
+
 
     def submit_tuneall_button(self):
         if self.button_trigger == False:
             self.button_trigger = True
         self.submit_tuneall()
 
+
     def submit_both_button(self):
         if self.button_trigger == False:
             self.button_trigger = True
         self.submit_epg()
         self.submit_tuneall()
+        if self.test_ip_b():
+            self.submit_epg_b()
+
 
     def submit_epg(self):
         # Disable the submit button while the automation is in progress
@@ -199,15 +246,27 @@ class App(customtkinter.CTk):
         self.sidebar_button_1.configure(state="disabled")
         self.start_automation_epg()
 
+
+    def submit_epg_b(self):
+        # Disable the submit button while the automation is in progress
+        self.sidebar_button_0.configure(state="disabled")
+        self.sidebar_button_1.configure(state="disabled")
+        self.start_automation_epg_b()
+
+
     def submit_tuneall(self):
         # Disable the submit button while the automation is in progress
         self.sidebar_button_0.configure(state="disabled")
         self.sidebar_button_2.configure(state="disabled")
         self.start_automation_tuneall()
 
+
     def submit_both(self):
         self.submit_epg()
         self.submit_tuneall()
+        if self.test_ip_b():
+            self.submit_epg_b()
+
 
     def start_automation_epg(self):
         # Check if the automation thread is already running
@@ -217,7 +276,19 @@ class App(customtkinter.CTk):
             self.automation_thread_epg = threading.Thread(target=self.automation_worker_epg)
             self.automation_thread_epg.start()
         else:
-            self.logmessage('EPG Automation thread is already running')
+            self.logmessage('EPG(A) Automation thread is already running')
+
+
+    def start_automation_epg_b(self):
+        # Check if the automation thread is already running
+
+        if self.automation_thread_epg is None or not self.automation_thread_epg.is_alive():
+            # Start automation in a separate thread
+            self.automation_thread_epg = threading.Thread(target=self.automation_worker_epg_b)
+            self.automation_thread_epg.start()
+        else:
+            self.logmessage('EPG(B) Automation thread is already running')
+
 
     def start_automation_tuneall(self):
         # Check if the automation thread is already running
@@ -227,6 +298,7 @@ class App(customtkinter.CTk):
             self.automation_thread_tuneall.start()
         else:
             self.logmessage('TuneAll Automation thread is already running')
+
 
     def automation_worker_epg(self):  
         try:
@@ -239,7 +311,7 @@ class App(customtkinter.CTk):
                 elif self.event_status == 'Auto Sunday Ticket':
                     event_todo = 'Sunday Ticket'
                 else:
-                    self.logmessage(f'Error: Unknown event submitted to epg worker thread. Button Press status should say None, however it says: {self.button_trigger}')
+                    self.logmessage(f'Error: Unknown event submitted to epg(A) worker thread. Button Press status should say None, however it says: {self.button_trigger}')
                 
             
             # Validate day selector for where to get the channellist from
@@ -288,6 +360,69 @@ class App(customtkinter.CTk):
             driver.quit()
             if self.button_trigger:
                 self.button_trigger = False
+
+
+    def automation_worker_epg_b(self):  
+        try:
+            # Define the channels to replace
+            if self.button_trigger:
+                event_todo = self.selector_optionemenu.get()   
+            else:
+                if self.event_status == 'Auto Everyday':
+                    event_todo = 'Everyday'
+                elif self.event_status == 'Auto Sunday Ticket':
+                    event_todo = 'Sunday Ticket'
+                else:
+                    self.logmessage(f'Error: Unknown event submitted to epg(B) worker thread. Button Press status should say None, however it says: {self.button_trigger}')
+                
+            
+            # Validate day selector for where to get the channellist from
+            if event_todo == 'Everyday':
+                channels = self.textbox_5.get('1.0', 'end-1c')
+            elif event_todo == 'Sunday Ticket':
+                channels = self.textbox_6.get('1.0', 'end-1c')
+            
+            com_card_ip = self.sidebar_entry_b.get()
+            textbox_xpath = '/html/body/pre/form[1]/pre/textarea'
+            submit_xpath = '/html/body/pre/form[1]/pre/input[1]'
+
+            # Set up Edge options for headless mode
+            edge_options = webdriver.EdgeOptions()
+            edge_options.add_argument('--headless')     # Run Edge in headless mode (no GUI)
+            edge_options.add_experimental_option("excludeSwitches", ["enable-logging"])
+
+            # Initialize the WebDriver with Chrome options
+            driver = webdriver.Edge(options=edge_options)
+
+            # Navigate to the website
+            driver.get(f'http://{com_card_ip}/cgi-bin/webcmd?screen=EpgDisplay')
+
+            # Wait for the input element to load ont he webpage
+            WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, textbox_xpath)))
+
+            # Find the input element where you want to paste the text
+            input_element = driver.find_element(By.XPATH, textbox_xpath)
+
+            # Clear the input before sending a new string
+            input_element.clear()
+
+            # Paste text into the input element
+            input_element.send_keys(channels)
+
+            # # Find the button element you want to click
+            submit_button = driver.find_element(By.XPATH, submit_xpath)
+
+            # # Click the submit button
+            submit_button.click()
+
+        finally:
+            # Re-enable the submit button after the automation is completed
+            self.sidebar_button_0.configure(state="normal")
+            self.sidebar_button_1.configure(state="normal")
+            driver.quit()
+            if self.button_trigger:
+                self.button_trigger = False
+
 
     def automation_worker_tuneall(self):  
         try:
@@ -351,6 +486,7 @@ class App(customtkinter.CTk):
 
     ## Scheduler for 'auto submit' is located at the bottom.
 
+
     def save_epg_ed(self):
         text_boxes = [self.textbox_1, self.textbox_2]
             
@@ -360,6 +496,7 @@ class App(customtkinter.CTk):
             text_content = text_boxes[0].get('1.0', 'end-1c')
             text_file.write(text_content)
             text_file.close()
+
 
     def save_epg_st(self):
         text_boxes = [self.textbox_1, self.textbox_2]
@@ -371,6 +508,29 @@ class App(customtkinter.CTk):
             text_file.write(text_content)
             text_file.close()
 
+
+    def save_epg_ed_b(self):
+        text_boxes = [self.textbox_5, self.textbox_6]
+            
+        text_file = filedialog.asksaveasfile(initialdir='%USERPROFILE%\Desktop', title="Save Everyday EPG", filetypes=(("Text Files", "*.txt"), ))
+        
+        if text_file:
+            text_content = text_boxes[0].get('1.0', 'end-1c')
+            text_file.write(text_content)
+            text_file.close()
+
+
+    def save_epg_st_b(self):
+        text_boxes = [self.textbox_6, self.textbox_6]
+            
+        text_file = filedialog.asksaveasfile(initialdir='%USERPROFILE%\Desktop', title="Save Sunday Ticket EPG", filetypes=(("Text Files", "*.txt"), ))
+        
+        if text_file:
+            text_content = text_boxes[1].get('1.0', 'end-1c')
+            text_file.write(text_content)
+            text_file.close()
+
+
     def save_TuneAll_ed(self):
         text_boxes = [self.textbox_3, self.textbox_4]
             
@@ -380,6 +540,7 @@ class App(customtkinter.CTk):
             text_content = text_boxes[0].get('1.0', 'end-1c')
             text_file.write(text_content)
             text_file.close()
+
 
     def save_TuneAll_st(self):
 
@@ -401,6 +562,7 @@ class App(customtkinter.CTk):
             self.textbox_1.insert(tk.END, data)
             text_file.close()
 
+
     def upload_ST_Epg(self):
         text_file = filedialog.askopenfile(initialdir='%USERPROFILE%\Desktop', title="Open Everyday EPG", filetypes=(("Text Files", "*.txt"), ))
         if text_file:
@@ -408,6 +570,25 @@ class App(customtkinter.CTk):
             self.textbox_2.delete('1.0', 'end')
             self.textbox_2.insert(tk.END, data)
             text_file.close()
+
+
+    def upload_ed_epg_b(self):
+        text_file = filedialog.askopenfile(initialdir='%USERPROFILE%\Desktop', title="Open Everyday EPG", filetypes=(("Text Files", "*.txt"), ))
+        if text_file:
+            data = text_file.read()
+            self.textbox_5.delete('1.0', 'end')
+            self.textbox_5.insert(tk.END, data)
+            text_file.close()
+
+
+    def upload_st_epg_b(self):
+        text_file = filedialog.askopenfile(initialdir='%USERPROFILE%\Desktop', title="Open Everyday EPG", filetypes=(("Text Files", "*.txt"), ))
+        if text_file:
+            data = text_file.read()
+            self.textbox_6.delete('1.0', 'end')
+            self.textbox_6.insert(tk.END, data)
+            text_file.close()
+
 
     def upload_ED_TuneAll(self):
         text_file = filedialog.askopenfile(initialdir='%USERPROFILE%\Desktop', title="Open Everyday EPG", filetypes=(("Text Files", "*.txt"), ))
@@ -417,6 +598,7 @@ class App(customtkinter.CTk):
             self.textbox_3.insert(tk.END, data)
             text_file.close()
 
+
     def upload_ST_TuneAll(self):
         text_file = filedialog.askopenfile(initialdir='%USERPROFILE%\Desktop', title="Open Everyday EPG", filetypes=(("Text Files", "*.txt"), ))
         if text_file:
@@ -424,6 +606,7 @@ class App(customtkinter.CTk):
             self.textbox_4.delete('1.0', 'end')
             self.textbox_4.insert(tk.END, data)
             text_file.close()
+
 
     def scheduler(self):
         status = self.sidebar_switch.get()
@@ -449,16 +632,26 @@ class App(customtkinter.CTk):
 
         self.after(60000, self.scheduler)
 
+
     def time(self):
         string = strftime('%A   %I:%M:%S %p')
         self.clock_lbl.configure(text=string)
         self.clock_lbl.after(1000, self.time)
 
+
     def donothing(self):
         self.iconify()
 
+
     def logmessage(self, message):
         app_logger.info(strftime('%m-%d-%Y -- %H:%M:%S  :  ') + message)
+
+
+    def test_ip_b(self):
+        if app.sidebar_entry_b.get():
+            return True # is not empty
+        else:
+            return False # is empty
 
 
 if __name__ == "__main__":
