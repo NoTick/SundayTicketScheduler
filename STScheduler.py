@@ -41,6 +41,7 @@ class App(customtkinter.CTk):
         super().__init__()
 
         self.automation_thread_epg = None
+        self.automation_thread_epg_b = None
         self.automation_thread_tuneall = None
         self.button_trigger = False
         self.event_status = None
@@ -282,10 +283,10 @@ class App(customtkinter.CTk):
     def start_automation_epg_b(self):
         # Check if the automation thread is already running
 
-        if self.automation_thread_epg is None or not self.automation_thread_epg.is_alive():
+        if self.automation_thread_epg_b is None or not self.automation_thread_epg_b.is_alive():
             # Start automation in a separate thread
-            self.automation_thread_epg = threading.Thread(target=self.automation_worker_epg_b)
-            self.automation_thread_epg.start()
+            self.automation_thread_epg_b = threading.Thread(target=self.automation_worker_epg_b)
+            self.automation_thread_epg_b.start()
         else:
             self.logmessage('EPG(B) Automation thread is already running')
 
