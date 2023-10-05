@@ -35,7 +35,7 @@ Process to use the automatic scheulder:
 How the scheduler executes:
 -   When the day switches to say 'Sunday', will 'Submit All' the Sunday Ticket EPG and Sunday Ticket TuneAll.
 -   When the day switches away from 'Sunday', it will 'Submit All' the Everyday EPG and Everyday TuneAll. This will execute only once.
--   When 'Automatically submit on Sunday' is enabled, the user will not be able to fully close the software without manually closing the window in the taskbar, or other 
-    more extreme means. This is to ensure the scheduler remains active.
+-   When 'Automatically submit on Sunday' is enabled, the user will not be able to fully close the software without manually closing via task-manager, or 
+    alternatively, disabling the feature and closing the window normally. This is to ensure the scheduler remains active.
 
 
