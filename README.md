@@ -6,7 +6,7 @@ Known Issues:
 
 
 
-Process to manuall use this tool:
+Process to manually use this tool:
 1a. If there's only a single EPG in the system, define the COM Card IP(A) on the left side of the app.
     a.  This should be where the active EPG exists. TuneAll can happen on any card. Default is 192.168.3.18.
 1b. If there are two EPG's (Scrolling & AEP) in the system, define both COM Card IP (A) and COM Card IP (B).
