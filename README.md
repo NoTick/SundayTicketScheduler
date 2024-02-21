@@ -26,7 +26,7 @@ Process to manually use this tool:
         ii. Submit EPG/Submit TuneAll greys out their corresponding buttons, and the 'Submit All' button.
 
 
-Process to use the automatic scheulder:
+Process to use the automatic scheduler:
 1.  Steps 1 through 4 must be followed before using the automatic scheduler.
 2.  For best results, ensure the system time is correctly set based upon the location.
     a.  The app displays current system time in the upper left of the app.
